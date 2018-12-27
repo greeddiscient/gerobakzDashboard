@@ -30,18 +30,3 @@
     transform: rotate(360deg);
   }
 }
-
-
-.login-form{
-  display: block;
-}
-.username-input{
-  display: block;
-}
-.password-input{
-  display: block;
-}
-.submit-button{
-  display: inline-block;
-  text-align: center;
-}

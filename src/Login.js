@@ -29,7 +29,7 @@ class Login extends Component {
     })
     event.preventDefault();
     console.log("submitted")
-    axios.post('http://gerobakz-api.herokuapp.com/api/login', {
+    axios.post('https://gerobakz-api.herokuapp.com/api/login', {
       username: this.state.username,
       password: this.state.password
     })

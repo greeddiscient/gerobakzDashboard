@@ -18,7 +18,7 @@ class Home extends Component {
       this.props.history.push('/login')
     }
     var that=this
-    axios.get('http://gerobakz-api.herokuapp.com/api/orders')
+    axios.get('https://gerobakz-api.herokuapp.com/api/orders')
     .then(function (response) {
       // handle success
       var data=response.data

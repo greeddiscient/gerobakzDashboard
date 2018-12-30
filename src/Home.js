@@ -52,6 +52,8 @@ class Home extends Component {
     for (var i=0;i<orders.length;i++){
       rows.push(<p>Item: {orders[i].order[0].item}</p>)
       rows.push(<p>Quantity: {orders[i].order[0].quantity}</p>)
+      rows.push(<p>Item: {orders[i].order[1].item}</p>)
+      rows.push(<p>Quantity: {orders[i].order[1].quantity}</p>)
       rows.push(<p>Time: {orders[i].time}</p>)
       rows.push(<p>Location: {orders[i].location.latitude} {orders[i].location.longitude}</p>)
       rows.push(<p>Total Price: Rp{orders[i].totalPrice}</p>)

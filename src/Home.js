@@ -12,8 +12,10 @@ class Home extends Component {
     this.state={
       orders: [],
       loading: true,
-      quantitySold: 0,
-      totalPrice: 0,
+      nasgorQuantitySold: 0,
+      nasgorTotalPrice: 0,
+      airQuantitySold: 0,
+      airTotalPrice: 0,
       loading: true
     }
   }
@@ -59,15 +61,21 @@ class Home extends Component {
 
   calculateStuff() {
     var orders = this.state.orders
-    var quantitySold = 0
-    var totalPrice = 0
+    var nasgorQuantitySold = 0
+    var nasgorTotalPrice = 0
+    var airQuantitySold=0
+    var airTotalPrice = 0
     for (var i=0;i<orders.length;i++){
-      quantitySold = quantitySold + orders[i].order[0].quantity
-      totalPrice = totalPrice + orders[i].totalPrice
+      nasgorQuantitySold = nasgorQuantitySold + orders[i].order[0].quantity
+      nasgorTotalPrice = nasgorTotalPrice + orders[i].order[0].price
+      airQuantitySold = airQuantitySold + orders[i].order[1].quantity
+      airTotalPrice = airTotalPrice + orders[i].order[1].price
     }
     this.setState({
-      quantitySold: quantitySold,
-      totalPrice: totalPrice
+      nasgorQuantitySold: nasgorQuantitySold,
+      nasgorTotalPrice: nasgorTotalPrice,
+      airQuantitySold: airQuantitySold,
+      airTotalPrice: airTotalPrice
     })
   }
   render() {
@@ -88,27 +96,27 @@ class Home extends Component {
         </tr>
         <tr>
           <td>Nasi Goreng</td>
-          <td>{this.state.quantitySold}</td>
-          <td>{this.state.totalPrice}</td>
+          <td>{this.state.nasgorQuantitySold}</td>
+          <td>{this.state.nasgorTotalPrice}</td>
           <td>5%</td>
-          <td>{0.05*this.state.totalPrice}</td>
-          <td>{this.state.totalPrice-0.05*this.state.totalPrice}</td>
+          <td>{0.05*this.state.nasgorTotalPrice}</td>
+          <td>{this.state.nasgorTotalPrice-0.05*this.state.nasgorTotalPrice}</td>
         </tr>
         <tr>
           <td>Water (600ml)</td>
-          <td>1</td>
-          <td>3,000</td>
+          <td>{this.state.airQuantitySold}</td>
+          <td>{this.state.airTotalPrice}</td>
           <td>0%</td>
           <td>0</td>
-          <td>3,000</td>
+          <td>{this.state.airTotalPrice}</td>
         </tr>
         <tr>
           <td>Total</td>
           <td>N/A</td>
-          <td>403,000</td>
+          <td>{this.state.nasgorTotalPrice+this.state.airTotalPrice}</td>
           <td>N/A</td>
-          <td>20,000</td>
-          <td>383,000</td>
+          <td>{0.05*this.state.nasgorTotalPrice}</td>
+          <td>{this.state.nasgorTotalPrice-0.05*this.state.nasgorTotalPrice+this.state.airTotalPrice}</td>
         </tr>
       </table>
 

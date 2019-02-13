@@ -12,11 +12,11 @@ class Home extends Component {
     this.state={
       orders: [],
       loading: true,
-      nasgorQuantitySold: 0,
-      nasgorTotalPrice: 0,
-      airQuantitySold: 0,
-      airTotalPrice: 0,
-      loading: true
+      quantity: 0,
+      price: 0,
+      loading: true,
+      incentive: 0,
+      todaysData: []
     }
   }
   componentWillMount(){
@@ -34,6 +34,7 @@ class Home extends Component {
         loading: false
       })
       console.log(data)
+      that.addTodaysSales()
       that.calculateStuff()
 
     })
@@ -52,32 +53,55 @@ class Home extends Component {
     for (var i=0;i<orders.length;i++){
       rows.push(<p>Item: {orders[i].order[0].item}</p>)
       rows.push(<p>Quantity: {orders[i].order[0].quantity}</p>)
-      rows.push(<p>Item: {orders[i].order[1].item}</p>)
-      rows.push(<p>Quantity: {orders[i].order[1].quantity}</p>)
       rows.push(<p>Time: {orders[i].time}</p>)
       rows.push(<p>Location: {orders[i].location.latitude} {orders[i].location.longitude}</p>)
       rows.push(<p>Total Price: Rp{orders[i].totalPrice}</p>)
     }
     return rows
   }
-
-  calculateStuff() {
-    var orders = this.state.orders
-    var nasgorQuantitySold = 0
-    var nasgorTotalPrice = 0
-    var airQuantitySold=0
-    var airTotalPrice = 0
-    for (var i=0;i<orders.length;i++){
-      nasgorQuantitySold = nasgorQuantitySold + orders[i].order[0].quantity
-      nasgorTotalPrice = nasgorTotalPrice + orders[i].order[0].price
-      airQuantitySold = airQuantitySold + orders[i].order[1].quantity
-      airTotalPrice = airTotalPrice + orders[i].order[1].price
+  addTodaysSales(){
+    var data= this.state.orders
+    var todaysData= []
+    for (var i=0;i<data.length;i++){
+      var momentData=moment(data[i].time)
+      if(momentData.format("YYYY-MM-DD")==moment().format("YYYY-MM-DD")){
+        todaysData.push(data[i])
+      }
     }
     this.setState({
-      nasgorQuantitySold: nasgorQuantitySold,
-      nasgorTotalPrice: nasgorTotalPrice,
-      airQuantitySold: airQuantitySold,
-      airTotalPrice: airTotalPrice
+      todaysData: todaysData
+    })
+    this.calculateStuff()
+    console.log("todaysData",todaysData)
+  }
+  calculateStuff() {
+    var orders = this.state.todaysData
+    var quantity = 0
+    var price = 0
+    var incentive=0
+    for (var i=0;i<orders.length;i++){
+      quantity = quantity + orders[i].order[0].quantity
+      price = price + orders[i].order[0].price
+    }
+    if (quantity < 16){
+      incentive = 0
+    }
+    else if (quantity <24){
+      incentive = 5
+    }
+    else if (quantity < 32){
+      incentive = 10
+    }
+    else if (quantity < 40){
+      incentive = 15
+    }
+    else{
+      incentive = 20
+    }
+    this.setState({
+      quantity: quantity,
+      price: price,
+      incentive: incentive
     })
   }
   render() {
@@ -85,7 +109,7 @@ class Home extends Component {
     return (
       <div className="App">
 
-      <h1>{this.state.loading ? <FontAwesomeIcon color="black" size="l" icon="spinner" spin/>: this.state.orders[this.state.orders.length-1].time}</h1>
+      <h1>{this.state.loading ? <FontAwesomeIcon color="black" size="l" icon="spinner" spin/>: moment().format("YYYY-MM-DD dddd HH:mm:ss")}</h1>
 
       <table className="center">
         <tr>
@@ -98,32 +122,13 @@ class Home extends Component {
         </tr>
         <tr>
           <td>Nasi Goreng</td>
-          <td>{this.state.nasgorQuantitySold}</td>
-          <td>{this.state.nasgorTotalPrice}</td>
-          <td>5%</td>
-          <td>{0.05*this.state.nasgorTotalPrice}</td>
-          <td>{this.state.nasgorTotalPrice-0.05*this.state.nasgorTotalPrice}</td>
-        </tr>
-        <tr>
-          <td>Water (600ml)</td>
-          <td>{this.state.airQuantitySold}</td>
-          <td>{this.state.airTotalPrice}</td>
-          <td>0%</td>
-          <td>0</td>
-          <td>{this.state.airTotalPrice}</td>
-        </tr>
-        <tr>
-          <td>Total</td>
-          <td>N/A</td>
-          <td>{this.state.nasgorTotalPrice+this.state.airTotalPrice}</td>
-          <td>N/A</td>
-          <td>{0.05*this.state.nasgorTotalPrice}</td>
-          <td>{this.state.nasgorTotalPrice-0.05*this.state.nasgorTotalPrice+this.state.airTotalPrice}</td>
+          <td>{this.state.quantity}</td>
+          <td>{(this.state.price).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+          <td>{this.state.incentive}%</td>
+          <td>{(this.state.incentive*this.state.price/100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+          <td>{(this.state.price-this.state.incentive*this.state.price/100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
         </tr>
       </table>
-
-        <h1>This is your year 2019</h1>
-        {this.state.loading ? <FontAwesomeIcon color="black" size="l" icon="spinner" spin/>: this.renderOrderRows()}
       </div>
     )
   }

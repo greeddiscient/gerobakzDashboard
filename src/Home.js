@@ -83,20 +83,23 @@ class Home extends Component {
       quantity = quantity + orders[i].order[0].quantity
       price = price + orders[i].order[0].price
     }
-    if (quantity < 16){
+    if (quantity < 20){
       incentive = 0
     }
-    else if (quantity <24){
+    else if (quantity <30){
       incentive = 5
     }
-    else if (quantity < 32){
+    else if (quantity < 40){
+      incentive = 7.5
+    }
+    else if (quantity < 50){
       incentive = 10
     }
-    else if (quantity < 40){
-      incentive = 15
+    else if (quantity < 60){
+      incentive = 12.5
     }
     else{
-      incentive = 20
+      incentive = 15
     }
     this.setState({
       quantity: quantity,

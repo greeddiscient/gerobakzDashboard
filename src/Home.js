@@ -233,28 +233,28 @@ class Home extends Component {
       </table>
 
       <h1>Opening Stock</h1>
-      <p>Bawang Bombay: {this.state.todaysOpeningStock[0].stock[0].bombayValue}</p>
-      <p>Bawang Putih: {this.state.todaysOpeningStock[0].stock[0].putihValue}</p>
-      <p>Cabe: {this.state.todaysOpeningStock[0].stock[0].cBValue}</p>
-      <p>Daun Bawang: {this.state.todaysOpeningStock[0].stock[0].daunValue}</p>
-      <p>Wijen: {this.state.todaysOpeningStock[0].stock[0].wjValue}</p>
-      <p>Telor: {this.state.todaysOpeningStock[0].stock[0].telorValue}</p>
-      <p>Nasi: {this.state.todaysOpeningStock[0].stock[0].nsValue}</p>
-      <p>Ayam: {this.state.todaysOpeningStock[0].stock[0].cBValue}</p>
-      <p>Furikake: {this.state.todaysOpeningStock[0].stock[0].fkValue}</p>
-      <p>Garlic Chips: {this.state.todaysOpeningStock[0].stock[0].gcValue}</p>
+      <p>Bawang Bombay: {this.state.todaysOpeningStock[0].stock[0].bombayValue}g</p>
+      <p>Bawang Putih: {this.state.todaysOpeningStock[0].stock[0].putihValue}g</p>
+      <p>Cabe: {this.state.todaysOpeningStock[0].stock[0].cBValue}g</p>
+      <p>Daun Bawang: {this.state.todaysOpeningStock[0].stock[0].daunValue}g</p>
+      <p>Wijen: {this.state.todaysOpeningStock[0].stock[0].wjValue}g</p>
+      <p>Telor: {this.state.todaysOpeningStock[0].stock[0].telorValue}g</p>
+      <p>Nasi: {this.state.todaysOpeningStock[0].stock[0].nsValue}g</p>
+      <p>Ayam: {this.state.todaysOpeningStock[0].stock[0].cBValue}g</p>
+      <p>Furikake: {this.state.todaysOpeningStock[0].stock[0].fkValue}g</p>
+      <p>Garlic Chips: {this.state.todaysOpeningStock[0].stock[0].gcValue}g</p>
 
       <h1>Closing Stock</h1>
-      <p>Bawang Bombay: {this.state.todaysClosingStock[0].stock[0].bombayValue}</p>
-      <p>Bawang Putih: {this.state.todaysClosingStock[0].stock[0].putihValue}</p>
-      <p>Cabe: {this.state.todaysClosingStock[0].stock[0].cBValue}</p>
-      <p>Daun Bawang: {this.state.todaysClosingStock[0].stock[0].daunValue}</p>
-      <p>Wijen: {this.state.todaysClosingStock[0].stock[0].wjValue}</p>
-      <p>Telor: {this.state.todaysClosingStock[0].stock[0].telorValue}</p>
-      <p>Nasi: {this.state.todaysClosingStock[0].stock[0].nsValue}</p>
-      <p>Ayam: {this.state.todaysClosingStock[0].stock[0].cBValue}</p>
-      <p>Furikake: {this.state.todaysClosingStock[0].stock[0].fkValue}</p>
-      <p>Garlic Chips: {this.state.todaysClosingStock[0].stock[0].gcValue}</p>
+      <p>Bawang Bombay: {this.state.todaysClosingStock[0].stock[0].bombayValue}g</p>
+      <p>Bawang Putih: {this.state.todaysClosingStock[0].stock[0].putihValue}g</p>
+      <p>Cabe: {this.state.todaysClosingStock[0].stock[0].cBValue}g</p>
+      <p>Daun Bawang: {this.state.todaysClosingStock[0].stock[0].daunValue}g</p>
+      <p>Wijen: {this.state.todaysClosingStock[0].stock[0].wjValue}g</p>
+      <p>Telor: {this.state.todaysClosingStock[0].stock[0].telorValue}g</p>
+      <p>Nasi: {this.state.todaysClosingStock[0].stock[0].nsValue}g</p>
+      <p>Ayam: {this.state.todaysClosingStock[0].stock[0].cBValue}g</p>
+      <p>Furikake: {this.state.todaysClosingStock[0].stock[0].fkValue}g</p>
+      <p>Garlic Chips: {this.state.todaysClosingStock[0].stock[0].gcValue}g</p>
 
       </div>
     )

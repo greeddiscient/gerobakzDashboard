@@ -11,12 +11,37 @@ class Home extends Component {
     super(props)
     this.state={
       orders: [],
+      closingStock:[],
+      openingStock:[],
       loading: true,
       quantity: 0,
       price: 0,
       loading: true,
       incentive: 0,
-      todaysData: []
+      todaysData: [],
+      todaysClosingStock: [{
+        stock: [{bombayValue: 0,
+        putihValue: 0,
+        cBValue: 0,
+        daunValue: 0,
+        wjValue: 0,
+        telorValue: 0,
+        nsValue: 0,
+        ayamValue: 0,
+        fkValue: 0,
+        gcValue: 0}]}],
+      todaysOpeningStock: [{
+        stock: [{bombayValue: 0,
+        putihValue: 0,
+        cBValue: 0,
+        daunValue: 0,
+        wjValue: 0,
+        telorValue: 0,
+        nsValue: 0,
+        ayamValue: 0,
+        fkValue: 0,
+        gcValue: 0}]}]
+
     }
   }
   componentWillMount(){
@@ -45,6 +70,49 @@ class Home extends Component {
     .then(function () {
       // always executed
     });
+
+    axios.get('https://gerobakz-api.herokuapp.com/api/opening_stock')
+    .then(function (response) {
+      // handle success
+      var data=response.data
+      that.setState({
+        openingStock: data,
+        loading: false
+      })
+      console.log(data)
+
+      that.addTodaysOpeningStock()
+
+
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+    });
+
+    axios.get('https://gerobakz-api.herokuapp.com/api/closing_stock')
+    .then(function (response) {
+      // handle success
+      var data=response.data
+      that.setState({
+        closingStock: data,
+        loading: false
+      })
+      console.log(data)
+      that.addTodaysClosingStock()
+
+    })
+    .catch(function (error) {
+      // handle error
+      console.log(error);
+    })
+    .then(function () {
+      // always executed
+    });
+
   }
   renderOrderRows(){
     var rows=[]
@@ -73,6 +141,40 @@ class Home extends Component {
     })
     this.calculateStuff()
     console.log("todaysData",todaysData)
+  }
+  addTodaysOpeningStock(){
+    var data= this.state.openingStock
+    var todaysOpeningStock= []
+    for (var i=0;i<data.length;i++){
+      var momentData=moment(data[i].time)
+      if(momentData.format("YYYY-MM-DD")==moment().format("YYYY-MM-DD")){
+        todaysOpeningStock.push(data[i])
+      }
+    }
+    if (todaysOpeningStock.length!=0){
+      this.setState({
+        todaysOpeningStock: todaysOpeningStock
+      })
+    }
+
+    console.log("todaysOpeningStock",todaysOpeningStock)
+  }
+  addTodaysClosingStock(){
+    var data= this.state.closingStock
+    var todaysClosingStock= []
+    for (var i=0;i<data.length;i++){
+      var momentData=moment(data[i].time)
+      if(momentData.format("YYYY-MM-DD")==moment().format("YYYY-MM-DD")){
+        todaysClosingStock.push(data[i])
+      }
+    }
+    if (todaysClosingStock.length!=0){
+      this.setState({
+        todaysClosingStock: todaysClosingStock
+      })
+    }
+
+    console.log("todaysClosingStock",todaysClosingStock)
   }
   calculateStuff() {
     var orders = this.state.todaysData
@@ -129,6 +231,31 @@ class Home extends Component {
           <td>{(this.state.price-this.state.incentive*this.state.price/100).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
         </tr>
       </table>
+
+      <h1>Opening Stock</h1>
+      <p>Bawang Bombay: {this.state.todaysOpeningStock[0].stock[0].bombayValue}</p>
+      <p>Bawang Putih: {this.state.todaysOpeningStock[0].stock[0].putihValue}</p>
+      <p>Cabe: {this.state.todaysOpeningStock[0].stock[0].cBValue}</p>
+      <p>Daun Bawang: {this.state.todaysOpeningStock[0].stock[0].daunValue}</p>
+      <p>Wijen: {this.state.todaysOpeningStock[0].stock[0].wjValue}</p>
+      <p>Telor: {this.state.todaysOpeningStock[0].stock[0].telorValue}</p>
+      <p>Nasi: {this.state.todaysOpeningStock[0].stock[0].nsValue}</p>
+      <p>Ayam: {this.state.todaysOpeningStock[0].stock[0].cBValue}</p>
+      <p>Furikake: {this.state.todaysOpeningStock[0].stock[0].fkValue}</p>
+      <p>Garlic Chips: {this.state.todaysOpeningStock[0].stock[0].gcValue}</p>
+
+      <h1>Closing Stock</h1>
+      <p>Bawang Bombay: {this.state.todaysClosingStock[0].stock[0].bombayValue}</p>
+      <p>Bawang Putih: {this.state.todaysClosingStock[0].stock[0].putihValue}</p>
+      <p>Cabe: {this.state.todaysClosingStock[0].stock[0].cBValue}</p>
+      <p>Daun Bawang: {this.state.todaysClosingStock[0].stock[0].daunValue}</p>
+      <p>Wijen: {this.state.todaysClosingStock[0].stock[0].wjValue}</p>
+      <p>Telor: {this.state.todaysClosingStock[0].stock[0].telorValue}</p>
+      <p>Nasi: {this.state.todaysClosingStock[0].stock[0].nsValue}</p>
+      <p>Ayam: {this.state.todaysClosingStock[0].stock[0].cBValue}</p>
+      <p>Furikake: {this.state.todaysClosingStock[0].stock[0].fkValue}</p>
+      <p>Garlic Chips: {this.state.todaysClosingStock[0].stock[0].gcValue}</p>
+
       </div>
     )
   }
